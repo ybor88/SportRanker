@@ -20,5 +20,7 @@ AP  NBA + 50, EUROLEAGUE + 25 + PG
 G   NBA + 50, EUROLEAGUE + 25 + PG
 PG  NBA + 50, EUROLEAGUE + 25 + PG
 
+run commando : clean javafx:run -> maven configuration type run
+
 1)modificare l'icona e lo stile dei pulsanti -> accattivante. al verde ed all'arancione.
 2)aggiungere il logo alla schermata principale e clicca su uno dei tile
