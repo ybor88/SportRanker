@@ -1,0 +1,24 @@
+SportRanker è un applicazione che consente di calcolare il rating di ogni giocatore di basket e calcio, generando una classifica totale ed inserendo tramite file
+un giocatore nel rating. Quindi predispone per sport -> calcio/basket due funzionalità. Inserisci giocatore - Visualizza rating
+
+cacolo rating calcio :
+
+1)
+P -     + PG
+D -       (    + 50) + PG
+C -       (    + 25) + PG
+A -     + PG
+
+
+
+calcolo rating basket :
+
+1)
+C   NBA + 50, EUROLEAGUE + 25 + PG
+AG  NBA + 50, EUROLEAGUE + 25 + PG
+AP  NBA + 50, EUROLEAGUE + 25 + PG
+G   NBA + 50, EUROLEAGUE + 25 + PG
+PG  NBA + 50, EUROLEAGUE + 25 + PG
+
+1)modificare l'icona e lo stile dei pulsanti -> accattivante. al verde ed all'arancione.
+2)aggiungere il logo alla schermata principale e clicca su uno dei tile
