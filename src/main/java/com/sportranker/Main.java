@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class Main extends Application {
 
     @Override
@@ -15,7 +17,7 @@ public class Main extends Application {
         stage.setTitle("SportRanker");
 
         // 🔽 Aggiunta dell'icona alla barra del titolo
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSportRanker.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/logoSportRanker.png"))));
 
         stage.setScene(scene);
         stage.setMaximized(true);
