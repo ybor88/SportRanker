@@ -1,9 +1,13 @@
 package com.sportranker;
 
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+
+import java.util.Objects;
 
 public class BasketballView extends VBox {
 
@@ -12,6 +16,10 @@ public class BasketballView extends VBox {
         setSpacing(20);
         setStyle("-fx-background-color: #ffcc80;"); // Arancione chiaro
 
+        // Header con immagine grande
+        ImageView headerImage = createHeader();
+        getChildren().add(headerImage);
+
         Button showRating = createStyledButton("Mostra Rating");
         Button addPlayer = createStyledButton("Aggiungi Giocatore");
 
@@ -19,6 +27,13 @@ public class BasketballView extends VBox {
         back.setOnAction(e -> stage.getScene().setRoot(new MainView(stage)));
 
         getChildren().addAll(showRating, addPlayer, back);
+    }
+
+    private ImageView createHeader() {
+        ImageView headerImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/basketball.png"))));
+        headerImage.setFitHeight(300);  // immagine molto grande
+        headerImage.setPreserveRatio(true);
+        return headerImage;
     }
 
     private Button createStyledButton(String text) {

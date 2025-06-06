@@ -35,7 +35,7 @@ public class MainView extends VBox {
         HBox cardsBox = new HBox(30);
         cardsBox.setAlignment(Pos.CENTER);
 
-        VBox footballCard = createCard("Calcio", "/img/football.jpg", "#43a047");
+        VBox footballCard = createCard("Soccer", "/img/football.jpg", "#43a047");
         VBox basketballCard = createCard("Basket", "/img/basketball.jpg", "#fb8c00");
 
         footballCard.setOnMouseClicked(e -> stage.getScene().setRoot(new FootballView(stage)));
@@ -47,9 +47,9 @@ public class MainView extends VBox {
     }
 
     private VBox createCard(String label, String imagePath, String bgColor) {
-        VBox box = new VBox(10);
+        VBox box = new VBox(15); // più spazio verticale tra immagine e titolo
         box.setAlignment(Pos.CENTER);
-        box.setPrefSize(200, 250);
+        box.setPrefSize(350, 400); // dimensioni maggiorate
         box.setStyle(
                 "-fx-background-color: " + bgColor + ";" +
                         "-fx-background-radius: 20;" +
@@ -59,15 +59,17 @@ public class MainView extends VBox {
 
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(140);
-        imageView.setFitHeight(140);
+        imageView.setFitWidth(280);  // immagine più grande
+        imageView.setFitHeight(280);
 
         Label title = new Label(label);
         title.setTextFill(Color.WHITE);
-        title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        title.setStyle("-fx-font-size: 36px; -fx-font-weight: bold;"); // titolo molto più grande
 
-        box.setOnMouseEntered(e -> box.setScaleX(1.05));
-        box.setOnMouseEntered(e -> box.setScaleY(1.05));
+        box.setOnMouseEntered(e -> {
+            box.setScaleX(1.05);
+            box.setScaleY(1.05);
+        });
         box.setOnMouseExited(e -> {
             box.setScaleX(1.0);
             box.setScaleY(1.0);
