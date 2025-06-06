@@ -1,24 +1,62 @@
 package com.sportranker;
 
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class FootballView extends VBox {
+
     public FootballView(Stage stage) {
         setAlignment(Pos.CENTER);
         setSpacing(20);
         setStyle("-fx-background-color: #a5d6a7;");
 
-        Button showRating = new Button("Mostra Rating");
-        Button addPlayer = new Button("Aggiungi Giocatore");
+        Button showRating = createStyledButton("Mostra Rating");
+        Button addPlayer = createStyledButton("Aggiungi Giocatore");
+        Button back = createStyledButton("← Torna indietro");
 
-        Button back = new Button("← Torna indietro");
         back.setOnAction(e -> stage.getScene().setRoot(new MainView(stage)));
 
         getChildren().addAll(showRating, addPlayer, back);
     }
 
+    private Button createStyledButton(String text) {
+        Button button = new Button(text);
+        button.setStyle(
+                "-fx-background-color: #2e7d32;" + // verde scuro
+                        "-fx-text-fill: white;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-padding: 10 20;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 3);" +
+                        "-fx-transition: all 0.3s ease-in-out;"
+        );
+
+        button.setOnMouseEntered(e -> button.setStyle(
+                "-fx-background-color: #388e3c;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-padding: 10 20;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 7, 0, 0, 4);"
+        ));
+
+        button.setOnMouseExited(e -> button.setStyle(
+                "-fx-background-color: #2e7d32;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-padding: 10 20;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 3);"
+        ));
+
+        return button;
+    }
 }
