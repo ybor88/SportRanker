@@ -22,9 +22,9 @@ PG  NBA + 50, EUROLEAGUE + 25 + PG
 
 run commando : clean javafx:run -> maven configuration type run
 
+##################TICKET
 
-1)palloni sopra i pulsanti
-2)database creare su mysql ed agganciare al progetto.
+1)database creare su mysql ed agganciare al progetto.
 
 tabelle
 rating

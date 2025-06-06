@@ -30,7 +30,7 @@ public class BasketballView extends VBox {
     }
 
     private ImageView createHeader() {
-        ImageView headerImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/basketball.png"))));
+        ImageView headerImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/basketballCup.png"))));
         headerImage.setFitHeight(300);  // immagine molto grande
         headerImage.setPreserveRatio(true);
         return headerImage;
