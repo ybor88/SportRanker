@@ -2,6 +2,7 @@ package com.sportranker;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -12,12 +13,13 @@ public class Main extends Application {
         Scene scene = new Scene(mainView);
 
         stage.setTitle("SportRanker");
-        stage.setScene(scene);
 
-        // Estende la finestra a tutto schermo
+        // 🔽 Aggiunta dell'icona alla barra del titolo
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logoSportRanker.png")));
+
+        stage.setScene(scene);
         stage.setMaximized(true);
         stage.setResizable(true);
-
         stage.show();
     }
 
