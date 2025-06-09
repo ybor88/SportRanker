@@ -26,6 +26,7 @@ public class AddPlayerDialogBasketball extends Stage {
         grid.setHgap(10);
         grid.setAlignment(Pos.CENTER);
 
+        TextField codiceField = new TextField();
         TextField nomeField = new TextField();
         TextField cognomeField = new TextField();
 
@@ -42,41 +43,45 @@ public class AddPlayerDialogBasketball extends Stage {
         TextField ratingField = new TextField();
         TextField nazionalitaField = new TextField();
 
-        grid.add(new Label("Nome:"), 0, 0);
-        grid.add(nomeField, 1, 0);
+        grid.add(new Label("Codice:"), 0, 0);
+        grid.add(codiceField, 1, 0);
 
-        grid.add(new Label("Cognome:"), 0, 1);
-        grid.add(cognomeField, 1, 1);
+        grid.add(new Label("Nome:"), 0, 1);
+        grid.add(nomeField, 1, 1);
 
-        grid.add(new Label("Anno Nascita:"), 0, 2);
-        grid.add(annoNascitaSpinner, 1, 2);
+        grid.add(new Label("Cognome:"), 0, 2);
+        grid.add(cognomeField, 1, 2);
 
-        grid.add(statoLabel, 0, 3);
-        grid.add(statoField, 1, 3);
+        grid.add(new Label("Anno Nascita:"), 0, 3);
+        grid.add(annoNascitaSpinner, 1, 3);
 
-        grid.add(new Label("Ruolo:"), 0, 4);
-        grid.add(ruoloCombo, 1, 4);
+        grid.add(statoLabel, 0, 4);
+        grid.add(statoField, 1, 4);
 
-        grid.add(new Label("Rating:"), 0, 5);
-        grid.add(ratingField, 1, 5);
+        grid.add(new Label("Ruolo:"), 0, 5);
+        grid.add(ruoloCombo, 1, 5);
 
-        grid.add(new Label("Nazionalità:"), 0, 6);
-        grid.add(nazionalitaField, 1, 6);
+        grid.add(new Label("Rating:"), 0, 6);
+        grid.add(ratingField, 1, 6);
+
+        grid.add(new Label("Nazionalità:"), 0, 7);
+        grid.add(nazionalitaField, 1, 7);
 
         Button saveButton = createStyledButton("Salva");
         Button cancelButton = createStyledButton("Annulla");
 
-        grid.add(saveButton, 0, 7);
-        grid.add(cancelButton, 1, 7);
+        grid.add(saveButton, 0, 8);
+        grid.add(cancelButton, 1, 8);
 
         saveButton.setOnAction(e -> {
+            String codice = codiceField.getText().trim();
             String nome = nomeField.getText().trim();
             String cognome = cognomeField.getText().trim();
             String nazionalita = nazionalitaField.getText().trim();
             String stato = statoField.getText();
             String ruolo = ruoloCombo.getValue();
 
-            if (nome.isEmpty() || cognome.isEmpty() || nazionalita.isEmpty() ||
+            if (codice.isEmpty() || nome.isEmpty() || cognome.isEmpty() || nazionalita.isEmpty() ||
                     stato == null || ruolo == null) {
                 showAlert(Alert.AlertType.ERROR, "Errore", "Compila tutti i campi obbligatori!");
                 return;
@@ -93,8 +98,7 @@ public class AddPlayerDialogBasketball extends Stage {
             int annoNascita = annoNascitaSpinner.getValue();
 
             // TODO: salva su DB
-
-            System.out.println("Salvato: " + nome + " " + cognome + " " + annoNascita + " " + stato + " " + ruolo + " " + rating + " " + nazionalita);
+            System.out.println("Salvato: " + codice + " " + nome + " " + cognome + " " + annoNascita + " " + stato + " " + ruolo + " " + rating + " " + nazionalita);
             close();
         });
 

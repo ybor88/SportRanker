@@ -47,9 +47,9 @@ public class MainView extends VBox {
     }
 
     private VBox createCard(String label, String imagePath, String bgColor) {
-        VBox box = new VBox(15); // più spazio verticale tra immagine e titolo
+        VBox box = new VBox(20); // leggermente più spazio verticale tra immagine e titolo
         box.setAlignment(Pos.CENTER);
-        box.setPrefSize(350, 400); // dimensioni maggiorate
+        box.setPrefSize(420, 480); // larghezza e altezza maggiorate
         box.setStyle(
                 "-fx-background-color: " + bgColor + ";" +
                         "-fx-background-radius: 20;" +
@@ -59,12 +59,12 @@ public class MainView extends VBox {
 
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(280);  // immagine più grande
-        imageView.setFitHeight(280);
+        imageView.setFitWidth(360);  // immagine più grande
+        imageView.setFitHeight(360);
 
         Label title = new Label(label);
         title.setTextFill(Color.WHITE);
-        title.setStyle("-fx-font-size: 36px; -fx-font-weight: bold;"); // titolo molto più grande
+        title.setStyle("-fx-font-size: 44px; -fx-font-weight: bold;"); // titolo più grande
 
         box.setOnMouseEntered(e -> {
             box.setScaleX(1.05);
