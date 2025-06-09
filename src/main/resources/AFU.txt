@@ -3,22 +3,15 @@ un giocatore nel rating. Quindi predispone per sport -> calcio/basket due funzio
 
 cacolo rating calcio :
 
-1)
-P -     + PG
-D -       (    + 50) + PG
-C -       (    + 25) + PG
-A -     + PG
-
-
+1)Partite giocate totali diviso stagioni totali    +
+2)Goal * 2 diviso partite giocate * 2 -> * 100     +
+3)Bonus ruolo : 66 C - 82 D
 
 calcolo rating basket :
 
-1)
-C   NBA + 50, EUROLEAGUE + 25 + PG
-AG  NBA + 50, EUROLEAGUE + 25 + PG
-AP  NBA + 50, EUROLEAGUE + 25 + PG
-G   NBA + 50, EUROLEAGUE + 25 + PG
-PG  NBA + 50, EUROLEAGUE + 25 + PG
+1)Partite giocate media +
+2)Punti per game        +
+3)Bonus Max Career : NBA 20 - EUROLEAGUE 10 - FIBA NATIONS/SUMMER LEAGUE NBA - 5
 
 run commando : clean javafx:run -> maven configuration type run
 
