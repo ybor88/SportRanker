@@ -1,5 +1,7 @@
 package com.sportranker;
 
+import com.sportranker.modali.AddPlayerDialogBasketball;
+import com.sportranker.modali.AddPlayerDialogFootball;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +26,12 @@ public class BasketballView extends VBox {
         Button addPlayer = createStyledButton("Aggiungi Giocatore");
 
         Button back = createStyledButton("← Torna indietro");
+        // Azione del pulsante "Aggiungi Giocatore" apre la modale
+        addPlayer.setOnAction(e -> {
+            AddPlayerDialogBasketball dialog = new AddPlayerDialogBasketball(stage);
+            dialog.showAndWait();
+        });
+
         back.setOnAction(e -> stage.getScene().setRoot(new MainView(stage)));
 
         getChildren().addAll(showRating, addPlayer, back);
