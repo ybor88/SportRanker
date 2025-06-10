@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -16,6 +17,13 @@ public class AddPlayerDialogFootball extends Stage {
         initOwner(owner);
         initModality(Modality.APPLICATION_MODAL);
         setTitle("Aggiungi Giocatore");
+
+        getIcons().add(new Image(
+                Objects.requireNonNull(getClass().getResourceAsStream("/img/palloneCalcio.jpg")),
+                64, 64,   // width, height forzati in pixel
+                true,     // preserveRatio
+                true      // smooth
+        ));
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(20));
@@ -30,14 +38,21 @@ public class AddPlayerDialogFootball extends Stage {
         Spinner<Integer> annoNascitaSpinner = new Spinner<>(1900, 2025, 2000);
         annoNascitaSpinner.setEditable(true);
 
-        ComboBox<String> statoCombo = new ComboBox<>();
-        statoCombo.getItems().addAll("S");  // Solo 'S' come richiesto
-
         ComboBox<String> ruoloCombo = new ComboBox<>();
-        ruoloCombo.getItems().addAll("CE", "DI", "AT", "PO"); // ruoli validi per S
+        ruoloCombo.getItems().addAll("CE", "DI", "AT", "PO"); // ruoli validi
 
-        TextField ratingField = new TextField();
         TextField nazionalitaField = new TextField();
+
+        TextField partiteDivisoStagioniField = new TextField();  // double
+        TextField goalCalcoloField = new TextField();            // double
+
+        ComboBox<String> bonusTipoCombo = new ComboBox<>();
+        bonusTipoCombo.getItems().addAll(
+                "Nessun bonus",
+                "Bonus Centrocampista",
+                "Bonus Difensore"
+        );
+        bonusTipoCombo.setValue("Nessun bonus");
 
         grid.add(new Label("Codice:"), 0, 0);
         grid.add(codiceField, 1, 0);
@@ -51,50 +66,66 @@ public class AddPlayerDialogFootball extends Stage {
         grid.add(new Label("Anno Nascita:"), 0, 3);
         grid.add(annoNascitaSpinner, 1, 3);
 
-        grid.add(new Label("Stato:"), 0, 4);
-        grid.add(statoCombo, 1, 4);
+        grid.add(new Label("Ruolo:"), 0, 4);
+        grid.add(ruoloCombo, 1, 4);
 
-        grid.add(new Label("Ruolo:"), 0, 5);
-        grid.add(ruoloCombo, 1, 5);
+        // Qui ho spostato Nazionalità subito sotto Ruolo
+        grid.add(new Label("Nazionalità:"), 0, 5);
+        grid.add(nazionalitaField, 1, 5);
 
-        grid.add(new Label("Rating:"), 0, 6);
-        grid.add(ratingField, 1, 6);
+        grid.add(new Label("Partite Giocate Totali / Stagioni Totali:"), 0, 6);
+        grid.add(partiteDivisoStagioniField, 1, 6);
 
-        grid.add(new Label("Nazionalità:"), 0, 7);
-        grid.add(nazionalitaField, 1, 7);
+        grid.add(new Label("Calcolo Goal * 2 / Partite * 2 * 100:"), 0, 7);
+        grid.add(goalCalcoloField, 1, 7);
+
+        grid.add(new Label("Tipo Bonus Ruolo:"), 0, 8);
+        grid.add(bonusTipoCombo, 1, 8);
 
         Button saveButton = createStyledButton("Salva");
         Button cancelButton = createStyledButton("Annulla");
 
-        grid.add(saveButton, 0, 8);
-        grid.add(cancelButton, 1, 8);
+        grid.add(saveButton, 0, 9);
+        grid.add(cancelButton, 1, 9);
 
         saveButton.setOnAction(e -> {
             String codice = codiceField.getText().trim();
             String nome = nomeField.getText().trim();
             String cognome = cognomeField.getText().trim();
             String nazionalita = nazionalitaField.getText().trim();
-            String stato = statoCombo.getValue();
             String ruolo = ruoloCombo.getValue();
 
-            if (codice.isEmpty() || nome.isEmpty() || cognome.isEmpty() || nazionalita.isEmpty() ||
-                    stato == null || ruolo == null) {
+            if (codice.isEmpty() || nome.isEmpty() || cognome.isEmpty() || nazionalita.isEmpty() || ruolo == null ||
+                    partiteDivisoStagioniField.getText().trim().isEmpty() ||
+                    goalCalcoloField.getText().trim().isEmpty() ||
+                    bonusTipoCombo.getValue() == null) {
                 showAlert(Alert.AlertType.ERROR, "Errore", "Compila tutti i campi obbligatori!");
                 return;
             }
 
-            double rating;
+            double partiteDivisoStagioni;
+            double goalCalcolo;
+
             try {
-                rating = Double.parseDouble(ratingField.getText().trim());
+                partiteDivisoStagioni = Double.parseDouble(partiteDivisoStagioniField.getText().trim());
             } catch (NumberFormatException ex) {
-                showAlert(Alert.AlertType.ERROR, "Errore", "Rating deve essere un numero valido!");
+                showAlert(Alert.AlertType.ERROR, "Errore", "Inserisci un numero valido per Partite/Stagioni!");
+                return;
+            }
+
+            try {
+                goalCalcolo = Double.parseDouble(goalCalcoloField.getText().trim());
+            } catch (NumberFormatException ex) {
+                showAlert(Alert.AlertType.ERROR, "Errore", "Inserisci un numero valido per il calcolo Goal!");
                 return;
             }
 
             int annoNascita = annoNascitaSpinner.getValue();
 
-            // Qui puoi inserire il codice per salvare il giocatore nel DB usando i dati raccolti
-            System.out.println("Salvato: " + codice + ", " + nome + " " + cognome + ", " + annoNascita + ", " + stato + ", " + ruolo + ", " + rating + ", " + nazionalita);
+            System.out.println("Salvato: " + codice + ", " + nome + " " + cognome + ", " + annoNascita + ", " +
+                    ruolo + ", Nazionalità: " + nazionalita +
+                    ", Partite/Stagioni: " + partiteDivisoStagioni + ", Calcolo Goal: " + goalCalcolo +
+                    ", Bonus Tipo: " + bonusTipoCombo.getValue());
 
             close();
         });

@@ -18,7 +18,7 @@ public class AddPlayerDialogBasketball extends Stage {
         initModality(Modality.APPLICATION_MODAL);
         setTitle("Aggiungi Giocatore");
 
-        getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/logoSportRanker.png"))));
+        getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/palloneBasket.jpg"))));
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(20));
@@ -33,16 +33,19 @@ public class AddPlayerDialogBasketball extends Stage {
         Spinner<Integer> annoNascitaSpinner = new Spinner<>(1900, 2025, 2000);
         annoNascitaSpinner.setEditable(true);
 
-        Label statoLabel = new Label("Stato:");
-        TextField statoField = new TextField("B");
-        statoField.setEditable(false);
-
         ComboBox<String> ruoloCombo = new ComboBox<>();
         ruoloCombo.getItems().addAll("C", "AG", "AP", "G", "PG");
 
-        TextField ratingField = new TextField();
         TextField nazionalitaField = new TextField();
 
+        // Nuovi campi
+        TextField partiteGiocateMediaField = new TextField();
+        TextField puntiPerGameField = new TextField();
+
+        ComboBox<String> bonusMaxCareerCombo = new ComboBox<>();
+        bonusMaxCareerCombo.getItems().addAll("NBA", "EUROLEAGUE", "FIBA NATIONS", "SUMMER LEAGUE NBA");
+
+        // Aggiungo le label e i campi al grid
         grid.add(new Label("Codice:"), 0, 0);
         grid.add(codiceField, 1, 0);
 
@@ -55,50 +58,65 @@ public class AddPlayerDialogBasketball extends Stage {
         grid.add(new Label("Anno Nascita:"), 0, 3);
         grid.add(annoNascitaSpinner, 1, 3);
 
-        grid.add(statoLabel, 0, 4);
-        grid.add(statoField, 1, 4);
+        grid.add(new Label("Ruolo:"), 0, 4);
+        grid.add(ruoloCombo, 1, 4);
 
-        grid.add(new Label("Ruolo:"), 0, 5);
-        grid.add(ruoloCombo, 1, 5);
+        grid.add(new Label("Nazionalità:"), 0, 5);
+        grid.add(nazionalitaField, 1, 5);
 
-        grid.add(new Label("Rating:"), 0, 6);
-        grid.add(ratingField, 1, 6);
+        grid.add(new Label("Partite giocate media:"), 0, 6);
+        grid.add(partiteGiocateMediaField, 1, 6);
 
-        grid.add(new Label("Nazionalità:"), 0, 7);
-        grid.add(nazionalitaField, 1, 7);
+        grid.add(new Label("Punti per game:"), 0, 7);
+        grid.add(puntiPerGameField, 1, 7);
+
+        grid.add(new Label("Bonus Max Career:"), 0, 8);
+        grid.add(bonusMaxCareerCombo, 1, 8);
 
         Button saveButton = createStyledButton("Salva");
         Button cancelButton = createStyledButton("Annulla");
 
-        grid.add(saveButton, 0, 8);
-        grid.add(cancelButton, 1, 8);
+        grid.add(saveButton, 0, 9);
+        grid.add(cancelButton, 1, 9);
 
         saveButton.setOnAction(e -> {
             String codice = codiceField.getText().trim();
             String nome = nomeField.getText().trim();
             String cognome = cognomeField.getText().trim();
             String nazionalita = nazionalitaField.getText().trim();
-            String stato = statoField.getText();
             String ruolo = ruoloCombo.getValue();
+            String bonusMaxCareer = bonusMaxCareerCombo.getValue();
 
-            if (codice.isEmpty() || nome.isEmpty() || cognome.isEmpty() || nazionalita.isEmpty() ||
-                    stato == null || ruolo == null) {
+            if (codice.isEmpty() || nome.isEmpty() || cognome.isEmpty() || nazionalita.isEmpty() || ruolo == null || bonusMaxCareer == null) {
                 showAlert(Alert.AlertType.ERROR, "Errore", "Compila tutti i campi obbligatori!");
-                return;
-            }
-
-            double rating;
-            try {
-                rating = Double.parseDouble(ratingField.getText().trim());
-            } catch (NumberFormatException ex) {
-                showAlert(Alert.AlertType.ERROR, "Errore", "Rating deve essere un numero valido!");
                 return;
             }
 
             int annoNascita = annoNascitaSpinner.getValue();
 
+            // Controllo numerico per partite giocate media
+            double partiteGiocateMedia;
+            try {
+                partiteGiocateMedia = Double.parseDouble(partiteGiocateMediaField.getText().trim());
+            } catch (NumberFormatException ex) {
+                showAlert(Alert.AlertType.ERROR, "Errore", "Partite giocate media deve essere un numero valido!");
+                return;
+            }
+
+            // Controllo numerico per punti per game
+            double puntiPerGame;
+            try {
+                puntiPerGame = Double.parseDouble(puntiPerGameField.getText().trim());
+            } catch (NumberFormatException ex) {
+                showAlert(Alert.AlertType.ERROR, "Errore", "Punti per game deve essere un numero valido!");
+                return;
+            }
+
             // TODO: salva su DB
-            System.out.println("Salvato: " + codice + " " + nome + " " + cognome + " " + annoNascita + " " + stato + " " + ruolo + " " + rating + " " + nazionalita);
+            System.out.println("Salvato: " + codice + " " + nome + " " + cognome + " " + annoNascita + " " + ruolo + " " + nazionalita +
+                    " Partite Giocate Media: " + partiteGiocateMedia +
+                    " Punti Per Game: " + puntiPerGame +
+                    " Bonus Max Career: " + bonusMaxCareer);
             close();
         });
 
@@ -120,7 +138,7 @@ public class AddPlayerDialogBasketball extends Stage {
     private Button createStyledButton(String text) {
         Button button = new Button(text);
         button.setStyle(
-                "-fx-background-color: #ef6c00;" +  // Arancione forte come BasketballView
+                "-fx-background-color: #ef6c00;" +
                         "-fx-text-fill: white;" +
                         "-fx-font-size: 16px;" +
                         "-fx-font-weight: bold;" +

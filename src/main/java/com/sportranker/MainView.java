@@ -47,9 +47,9 @@ public class MainView extends VBox {
     }
 
     private VBox createCard(String label, String imagePath, String bgColor) {
-        VBox box = new VBox(20); // leggermente più spazio verticale tra immagine e titolo
+        VBox box = new VBox(20);
         box.setAlignment(Pos.CENTER);
-        box.setPrefSize(420, 480); // larghezza e altezza maggiorate
+        box.setPrefSize(480, 320); // più larga che alta
         box.setStyle(
                 "-fx-background-color: " + bgColor + ";" +
                         "-fx-background-radius: 20;" +
@@ -59,12 +59,13 @@ public class MainView extends VBox {
 
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(360);  // immagine più grande
-        imageView.setFitHeight(360);
+        imageView.setFitWidth(440);
+        imageView.setFitHeight(240);
+        imageView.setPreserveRatio(false); // se vuoi forzare la dimensione rettangolare
 
         Label title = new Label(label);
         title.setTextFill(Color.WHITE);
-        title.setStyle("-fx-font-size: 44px; -fx-font-weight: bold;"); // titolo più grande
+        title.setStyle("-fx-font-size: 44px; -fx-font-weight: bold;");
 
         box.setOnMouseEntered(e -> {
             box.setScaleX(1.05);
