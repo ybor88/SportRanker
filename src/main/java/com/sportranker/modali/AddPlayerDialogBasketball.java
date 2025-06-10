@@ -182,13 +182,14 @@ public class AddPlayerDialogBasketball extends Stage {
             try {
                 Connection conn = com.sportranker.db.DatabaseManager.getConnection();
 
-                String sql = "INSERT INTO PLAYERS (NOME, COGNOME, ANNO_NASCITA, SPORT, RUOLO, RATING, NAZIONALITA) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO PLAYERS (CODICE, NOME, COGNOME, ANNO_NASCITA, SPORT, RUOLO, RATING, NAZIONALITA) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
                 try (var stmt = conn.prepareStatement(sql)) {
-                    stmt.setString(1, nome);
-                    stmt.setString(2, cognome);
-                    stmt.setInt(3, annoNascita);
+                    stmt.setString(1,codice);
+                    stmt.setString(2, nome);
+                    stmt.setString(3, cognome);
+                    stmt.setInt(4, annoNascita);
                     stmt.setString(5, sport);
                     stmt.setString(6, ruolo);
                     stmt.setDouble(7, rating);

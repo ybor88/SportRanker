@@ -27,17 +27,15 @@ GRANT ALL PRIVILEGES ON sportRankerDB.* TO 'sportranker_user'@'localhost';
 FLUSH PRIVILEGES;
 
 CREATE TABLE PLAYERS (
-    CODICE INT PRIMARY KEY AUTO_INCREMENT,
+    CODICE CHAR(15) PRIMARY KEY, -- Alphanumeric, fixed at 15 characters
     NOME VARCHAR(50) NOT NULL,
     COGNOME VARCHAR(50) NOT NULL,
     ANNO_NASCITA YEAR NOT NULL,
-    STATO ENUM('B', 'S') NOT NULL,
     SPORT ENUM('B', 'S') NOT NULL,
     RUOLO ENUM('C', 'AG', 'AP', 'G', 'PG', 'CE', 'DI', 'AT', 'PO') NOT NULL,
     RATING DECIMAL(5,2) DEFAULT NULL,
     NAZIONALITA VARCHAR(50) NOT NULL
 );
-
 ##################TICKET
 
 1)database creare su mysql ed agganciare al progetto.
