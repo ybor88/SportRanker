@@ -67,10 +67,10 @@ public class AddPlayerDialogBasketball extends Stage {
         grid.add(new Label("Nazionalità:"), 0, 5);
         grid.add(nazionalitaField, 1, 5);
 
-        grid.add(new Label("Partite giocate media:"), 0, 6);
+        grid.add(new Label("Minuti giocati media carriera:"), 0, 6);
         grid.add(partiteGiocateMediaField, 1, 6);
 
-        grid.add(new Label("Punti per game:"), 0, 7);
+        grid.add(new Label("Media Punti per game carriera:"), 0, 7);
         grid.add(puntiPerGameField, 1, 7);
 
         grid.add(new Label("Bonus Max Career:"), 0, 8);
