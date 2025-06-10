@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.util.Objects;
 
+import static java.lang.System.*;
+
 public class AddPlayerDialogBasketball extends Stage {
 
     public AddPlayerDialogBasketball(Stage owner) {
@@ -113,8 +115,8 @@ public class AddPlayerDialogBasketball extends Stage {
                 return;
             }
 
-            // TODO: salva su DB
-            System.out.println("Salvato: " + codice + " " + nome + " " + cognome + " " + annoNascita + " " + ruolo + " " + nazionalita +
+            /* TODO: salva su DB */
+            out.println("Salvato: " + codice + " " + nome + " " + cognome + " " + annoNascita + " " + ruolo + " " + nazionalita +
                     " Partite Giocate Media: " + partiteGiocateMedia +
                     " Punti Per Game: " + puntiPerGame +
                     " Bonus Max Career: " + bonusMaxCareer);
@@ -158,21 +160,12 @@ public class AddPlayerDialogBasketball extends Stage {
             }
 
             // Calcolo bonus valore
-            double bonusValore;
-            switch (bonusMaxCareer) {
-                case "NBA":
-                    bonusValore = 20.0;
-                    break;
-                case "EUROLEAGUE":
-                    bonusValore = 10.0;
-                    break;
-                case "FIBA NATIONS":
-                case "SUMMER LEAGUE NBA":
-                    bonusValore = 5.0;
-                    break;
-                default:
-                    bonusValore = 0.0;
-            }
+            double bonusValore = switch (bonusMaxCareer) {
+                case "NBA" -> 20.0;
+                case "EUROLEAGUE" -> 10.0;
+                case "FIBA NATIONS", "SUMMER LEAGUE NBA" -> 5.0;
+                default -> 0.0;
+            };
 
             double rating = partiteGiocateMedia + puntiPerGame + bonusValore;
 
@@ -209,7 +202,7 @@ public class AddPlayerDialogBasketball extends Stage {
                 showAlert(Alert.AlertType.ERROR, "Errore", "Errore nel database: " + ex.getMessage());
             }
 
-            System.out.println("Salvato: " + codice + " " + nome + " " + cognome + " " + annoNascita + " " + ruolo + " " + nazionalita +
+            out.println("Salvato: " + codice + " " + nome + " " + cognome + " " + annoNascita + " " + ruolo + " " + nazionalita +
                     " Partite Giocate Media: " + partiteGiocateMedia +
                     " Punti Per Game: " + puntiPerGame +
                     " Bonus Max Career: " + bonusMaxCareer +

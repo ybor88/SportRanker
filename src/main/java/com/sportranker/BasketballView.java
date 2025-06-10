@@ -1,7 +1,6 @@
 package com.sportranker;
 
 import com.sportranker.modali.AddPlayerDialogBasketball;
-import com.sportranker.modali.AddPlayerDialogFootball;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,7 +26,7 @@ public class BasketballView extends VBox {
 
         Button back = createStyledButton("← Torna indietro");
 
-        // Azione del pulsante "Mostra Rating" apre la schermata dei top players
+        // Azione del pulsante "Mostra Rating" pre la schermata dei top players
         showRating.setOnAction(e -> stage.getScene().setRoot(new RatingViewBasketball(stage)));
         // Azione del pulsante "Aggiungi Giocatore" apre la modale
         addPlayer.setOnAction(e -> {
@@ -42,7 +41,7 @@ public class BasketballView extends VBox {
 
     private ImageView createHeader() {
         ImageView headerImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/basketballCup.png"))));
-        headerImage.setFitHeight(300);  // immagine molto grande
+        headerImage.setFitHeight(300);  // immagine motto grande
         headerImage.setPreserveRatio(true);
         return headerImage;
     }

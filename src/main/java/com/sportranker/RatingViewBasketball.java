@@ -22,6 +22,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.*;
+import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
+
 public class RatingViewBasketball extends VBox {
     public RatingViewBasketball(Stage stage) {
         setSpacing(15);
@@ -32,7 +35,7 @@ public class RatingViewBasketball extends VBox {
         InputStream imgStream = getClass().getResourceAsStream("/img/palloneBasket.jpg");
         ImageView headerImage = (imgStream != null) ? new ImageView(new Image(imgStream)) : new ImageView();
         if (imgStream == null) {
-            System.out.println("Immagine non trovata!");
+            out.println("Immagine non trovata!");
         } else {
             headerImage.setFitHeight(100);
             headerImage.setPreserveRatio(true);
@@ -45,7 +48,7 @@ public class RatingViewBasketball extends VBox {
         TableView<Player> table = new TableView<>();
         table.setPrefWidth(500);
         table.setStyle("-fx-background-color: white; -fx-border-color: #ff9800; -fx-border-width: 2px;");
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
 
         // Creazione colonne con numerazione automatica e intestazioni arancioni
         TableColumn<Player, Integer> posizioneCol = new TableColumn<>("Posizione");
@@ -53,9 +56,9 @@ public class RatingViewBasketball extends VBox {
 
         TableColumn<Player, String> nomeCol = createStyledColumn("Nome", "nome");
         TableColumn<Player, String> cognomeCol = createStyledColumn("Cognome", "cognome");
-        TableColumn<Player, Integer> annoCol = createStyledColumnInt("Anno Nascita", "annoNascita");
+        TableColumn<Player, Integer> annoCol = createStyledColumnInt();
         TableColumn<Player, String> ruoloCol = createStyledColumn("Ruolo", "ruolo");
-        TableColumn<Player, Double> ratingCol = createStyledColumnDouble("Rating", "rating");
+        TableColumn<Player, Double> ratingCol = createStyledColumnDouble();
 
         table.getColumns().addAll(posizioneCol, nomeCol, cognomeCol, annoCol, ruoloCol, ratingCol);
         table.setItems(getTopPlayers());
@@ -76,20 +79,20 @@ public class RatingViewBasketball extends VBox {
         return column;
     }
 
-    private TableColumn<Player, Integer> createStyledColumnInt(String title, String property) {
-        TableColumn<Player, Integer> column = new TableColumn<>(title);
-        column.setCellValueFactory(new PropertyValueFactory<>(property));
+    private TableColumn<Player, Integer> createStyledColumnInt() {
+        TableColumn<Player, Integer> column = new TableColumn<>("Anno Nascita");
+        column.setCellValueFactory(new PropertyValueFactory<>("annoNascita"));
         column.setStyle("-fx-text-fill: #ff9800; -fx-font-weight: bold;");
         return column;
     }
 
-    private TableColumn<Player, Double> createStyledColumnDouble(String title, String property) {
-        TableColumn<Player, Double> column = new TableColumn<>(title);
-        column.setCellValueFactory(new PropertyValueFactory<>(property));
+    private TableColumn<Player, Double> createStyledColumnDouble() {
+        TableColumn<Player, Double> column = new TableColumn<>("Rating");
+        column.setCellValueFactory(new PropertyValueFactory<>("rating"));
         column.setStyle("-fx-text-fill: #ff9800; -fx-font-weight: bold;");
 
         // Colorazione delle prime tre posizioni SOLO sulla colonna Rating
-        column.setCellFactory(tc -> new TableCell<Player, Double>() {
+        column.setCellFactory(tc -> new TableCell<>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);

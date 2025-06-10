@@ -36,10 +36,6 @@ CREATE TABLE PLAYERS (
     RATING DECIMAL(5,2) DEFAULT NULL,
     NAZIONALITA VARCHAR(50) NOT NULL
 );
-##################TICKET
 
-1)database creare su mysql ed agganciare al progetto.
-
-tabelle
-rating
-giocatori
+export db
+mysqldump -u username -p database_name > backup.sql

@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.util.Objects;
 
+import static java.lang.System.*;
+
 public class AddPlayerDialogFootball extends Stage {
 
     public AddPlayerDialogFootball(Stage owner) {
@@ -123,7 +125,7 @@ public class AddPlayerDialogFootball extends Stage {
 
             int annoNascita = annoNascitaSpinner.getValue();
 
-            System.out.println("Salvato: " + codice + ", " + nome + " " + cognome + ", " + annoNascita + ", " +
+            out.println("Salvato: " + codice + ", " + nome + " " + cognome + ", " + annoNascita + ", " +
                     ruolo + ", Nazionalità: " + nazionalita +
                     ", Partite/Stagioni: " + partiteDivisoStagioni + ", Calcolo Goal: " + goalCalcolo +
                     ", Bonus Tipo: " + bonusTipoCombo.getValue());
@@ -172,19 +174,11 @@ public class AddPlayerDialogFootball extends Stage {
             int annoNascita = annoNascitaSpinner.getValue();
 
             // Calcolo bonus in base al tipo selezionato
-            double bonusValore = 0.0;
-            switch (bonusTipoCombo.getValue()) {
-                case "Bonus Centrocampista":
-                    bonusValore = 66.0;
-                    break;
-                case "Bonus Difensore":
-                    bonusValore = 82.0;
-                    break;
-                case "Nessun bonus":
-                default:
-                    bonusValore = 0.0;
-                    break;
-            }
+            double bonusValore = switch (bonusTipoCombo.getValue()) {
+                case "Bonus Centrocampista" -> 66.0;
+                case "Bonus Difensore" -> 82.0;
+                default -> 0.0;
+            };
 
             // Calcolo rating sommando i valori
             double rating = partiteDivisoStagioni + goalCalcolo + bonusValore;
