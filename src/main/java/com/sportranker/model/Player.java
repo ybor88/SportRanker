@@ -1,46 +1,60 @@
 package com.sportranker.model;
 
+import javafx.scene.paint.Color;
+
 public class Player {
-    private final String codice;
-    private final String nome;
-    private final String cognome;
-    private final String sport; // "calcio" o "basket"
+    private String nome;
+    private String cognome;
+    private int annoNascita;
+    private String ruolo;
     private double rating;
+    private Color textColor;
+    private int posizione;
 
-    public Player(String codice, String nome, String cognome, String sport, double rating) {
-        this.codice = codice;
+    public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public void setCognome(String cognome) {
         this.cognome = cognome;
-        this.sport = sport;
-        this.rating = rating;
     }
 
-    public String getCodice() {
-        return codice;
+    public void setAnnoNascita(int annoNascita) {
+        this.annoNascita = annoNascita;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public String getSport() {
-        return sport;
-    }
-
-    public double getRating() {
-        return rating;
+    public void setRuolo(String ruolo) {
+        this.ruolo = ruolo;
     }
 
     public void setRating(double rating) {
         this.rating = rating;
     }
 
-    @Override
-    public String toString() {
-        return codice + ": " + nome + " " + cognome + " (" + sport + ") - Rating: " + rating;
+    public int getPosizione() {
+        return posizione;
+    }
+
+    public void setPosizione(int posizione) {
+        this.posizione = posizione;
+    }
+
+    public Player(int posizione, String nome, String cognome, int annoNascita, String ruolo, double rating) {
+        this.posizione = posizione;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.annoNascita = annoNascita;
+        this.ruolo = ruolo;
+        this.rating = rating;
+    }
+    public String getNome() { return nome; }
+    public String getCognome() { return cognome; }
+    public int getAnnoNascita() { return annoNascita; }
+    public String getRuolo() { return ruolo; }
+    public double getRating() { return rating; }
+    public Color getTextColor() { return textColor; }
+
+    public void setTextColor(Color textColor) {
+        this.textColor = textColor;
     }
 }

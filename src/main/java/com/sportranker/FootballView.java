@@ -25,6 +25,9 @@ public class FootballView extends VBox {
         Button addPlayer = createStyledButton("Aggiungi Giocatore");
         Button back = createStyledButton("← Torna indietro");
 
+        // Azione del pulsante "Mostra Rating" apre la schermata dei top players
+        showRating.setOnAction(e -> stage.getScene().setRoot(new RatingViewSoccer(stage)));
+
         // Azione del pulsante "Aggiungi Giocatore" apre la modale
         addPlayer.setOnAction(e -> {
             AddPlayerDialogFootball dialog = new AddPlayerDialogFootball(stage);
