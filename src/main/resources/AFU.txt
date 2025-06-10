@@ -38,4 +38,4 @@ CREATE TABLE PLAYERS (
 );
 
 export db
-mysqldump -u username -p database_name > backup.sql
+mysqldump -u sportranker_user -p BHg72612KJo > backupSportRankerDB.sql
