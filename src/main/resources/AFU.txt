@@ -4,7 +4,7 @@ un giocatore nel rating. Quindi predispone per sport -> calcio/basket due funzio
 cacolo rating calcio :
 
 1)Partite giocate totali diviso stagioni totali    +
-2)Goal * 2 diviso partite giocate * 2 -> * 100     +
+2)Goal * 2 diviso partite giocate -> * 100     +
 3)Bonus ruolo : 66 C - 82 D
 
 calcolo rating basket :
