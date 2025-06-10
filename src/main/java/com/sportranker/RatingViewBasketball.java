@@ -124,7 +124,7 @@ public class RatingViewBasketball extends VBox {
              PreparedStatement stmt = conn.prepareStatement(
                      "SELECT ROW_NUMBER() OVER (ORDER BY RATING DESC) AS POSIZIONE, " +
                              "NOME, COGNOME, ANNO_NASCITA, RUOLO, RATING " +
-                             "FROM PLAYERS WHERE SPORT = 'B' ORDER BY RATING");
+                             "FROM PLAYERS WHERE SPORT = 'B' ORDER BY RATING DESC");
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
