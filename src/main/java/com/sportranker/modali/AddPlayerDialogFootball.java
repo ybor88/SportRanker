@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
 import java.util.Objects;
 
 public class AddPlayerDialogFootball extends Stage {
@@ -134,6 +135,93 @@ public class AddPlayerDialogFootball extends Stage {
 
         Scene scene = new Scene(grid);
         setScene(scene);
+
+        // Qui va il codice:
+        saveButton.setOnAction(e -> {
+            String codice = codiceField.getText().trim();
+            String nome = nomeField.getText().trim();
+            String cognome = cognomeField.getText().trim();
+            String nazionalita = nazionalitaField.getText().trim();
+            String ruolo = ruoloCombo.getValue();
+
+            if (codice.isEmpty() || nome.isEmpty() || cognome.isEmpty() || nazionalita.isEmpty() || ruolo == null ||
+                    partiteDivisoStagioniField.getText().trim().isEmpty() ||
+                    goalCalcoloField.getText().trim().isEmpty() ||
+                    bonusTipoCombo.getValue() == null) {
+                showAlert(Alert.AlertType.ERROR, "Errore", "Compila tutti i campi obbligatori!");
+                return;
+            }
+
+            double partiteDivisoStagioni;
+            double goalCalcolo;
+
+            try {
+                partiteDivisoStagioni = Double.parseDouble(partiteDivisoStagioniField.getText().trim());
+            } catch (NumberFormatException ex) {
+                showAlert(Alert.AlertType.ERROR, "Errore", "Inserisci un numero valido per Partite/Stagioni!");
+                return;
+            }
+
+            try {
+                goalCalcolo = Double.parseDouble(goalCalcoloField.getText().trim());
+            } catch (NumberFormatException ex) {
+                showAlert(Alert.AlertType.ERROR, "Errore", "Inserisci un numero valido per il calcolo Goal!");
+                return;
+            }
+
+            int annoNascita = annoNascitaSpinner.getValue();
+
+            // Calcolo bonus in base al tipo selezionato
+            double bonusValore = 0.0;
+            switch (bonusTipoCombo.getValue()) {
+                case "Bonus Centrocampista":
+                    bonusValore = 66.0;
+                    break;
+                case "Bonus Difensore":
+                    bonusValore = 82.0;
+                    break;
+                case "Nessun bonus":
+                default:
+                    bonusValore = 0.0;
+                    break;
+            }
+
+            // Calcolo rating sommando i valori
+            double rating = partiteDivisoStagioni + goalCalcolo + bonusValore;
+
+            // SPORT fisso a 'S'
+            String sport = "S";
+
+            try {
+                Connection conn = com.sportranker.db.DatabaseManager.getConnection();
+
+                String sql = "INSERT INTO PLAYERS (NOME, COGNOME, ANNO_NASCITA, SPORT, RUOLO, RATING, NAZIONALITA) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+                try (var stmt = conn.prepareStatement(sql)) {
+                    stmt.setString(1, nome);
+                    stmt.setString(2, cognome);
+                    stmt.setInt(3, annoNascita);
+                    stmt.setString(5, sport);
+                    stmt.setString(6, ruolo);
+                    stmt.setDouble(7, rating);
+                    stmt.setString(8, nazionalita);
+
+                    int rowsInserted = stmt.executeUpdate();
+                    if (rowsInserted > 0) {
+                        showAlert(Alert.AlertType.INFORMATION, "Successo", "Giocatore aggiunto correttamente!");
+                        close();
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Errore", "Errore nell'inserimento del giocatore nel database.");
+                    }
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Errore", "Errore nel database: " + ex.getMessage());
+            }
+        });
+
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {

@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
 import java.util.Objects;
 
 public class AddPlayerDialogBasketball extends Stage {
@@ -43,7 +44,7 @@ public class AddPlayerDialogBasketball extends Stage {
         TextField puntiPerGameField = new TextField();
 
         ComboBox<String> bonusMaxCareerCombo = new ComboBox<>();
-        bonusMaxCareerCombo.getItems().addAll("NBA", "EUROLEAGUE", "FIBA NATIONS", "SUMMER LEAGUE NBA");
+        bonusMaxCareerCombo.getItems().addAll("NBA", "EUROLEAGUE", "FIBA NATIONS", "SUMMER LEAGUE NBA", "Nessun bonus");
 
         // Aggiungo le label e i campi al grid
         grid.add(new Label("Codice:"), 0, 0);
@@ -124,6 +125,97 @@ public class AddPlayerDialogBasketball extends Stage {
 
         Scene scene = new Scene(grid);
         setScene(scene);
+
+        saveButton.setOnAction(e -> {
+            String codice = codiceField.getText().trim();
+            String nome = nomeField.getText().trim();
+            String cognome = cognomeField.getText().trim();
+            String nazionalita = nazionalitaField.getText().trim();
+            String ruolo = ruoloCombo.getValue();
+            String bonusMaxCareer = bonusMaxCareerCombo.getValue();
+
+            if (codice.isEmpty() || nome.isEmpty() || cognome.isEmpty() || nazionalita.isEmpty() || ruolo == null || bonusMaxCareer == null) {
+                showAlert(Alert.AlertType.ERROR, "Errore", "Compila tutti i campi obbligatori!");
+                return;
+            }
+
+            int annoNascita = annoNascitaSpinner.getValue();
+
+            double partiteGiocateMedia;
+            try {
+                partiteGiocateMedia = Double.parseDouble(partiteGiocateMediaField.getText().trim());
+            } catch (NumberFormatException ex) {
+                showAlert(Alert.AlertType.ERROR, "Errore", "Partite giocate media deve essere un numero valido!");
+                return;
+            }
+
+            double puntiPerGame;
+            try {
+                puntiPerGame = Double.parseDouble(puntiPerGameField.getText().trim());
+            } catch (NumberFormatException ex) {
+                showAlert(Alert.AlertType.ERROR, "Errore", "Punti per game deve essere un numero valido!");
+                return;
+            }
+
+            // Calcolo bonus valore
+            double bonusValore;
+            switch (bonusMaxCareer) {
+                case "NBA":
+                    bonusValore = 20.0;
+                    break;
+                case "EUROLEAGUE":
+                    bonusValore = 10.0;
+                    break;
+                case "FIBA NATIONS":
+                case "SUMMER LEAGUE NBA":
+                    bonusValore = 5.0;
+                    break;
+                default:
+                    bonusValore = 0.0;
+            }
+
+            double rating = partiteGiocateMedia + puntiPerGame + bonusValore;
+
+
+            String sport = "B";
+
+            try {
+                Connection conn = com.sportranker.db.DatabaseManager.getConnection();
+
+                String sql = "INSERT INTO PLAYERS (NOME, COGNOME, ANNO_NASCITA, SPORT, RUOLO, RATING, NAZIONALITA) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+                try (var stmt = conn.prepareStatement(sql)) {
+                    stmt.setString(1, nome);
+                    stmt.setString(2, cognome);
+                    stmt.setInt(3, annoNascita);
+                    stmt.setString(5, sport);
+                    stmt.setString(6, ruolo);
+                    stmt.setDouble(7, rating);
+                    stmt.setString(8, nazionalita);
+
+                    int rowsInserted = stmt.executeUpdate();
+                    if (rowsInserted > 0) {
+                        showAlert(Alert.AlertType.INFORMATION, "Successo", "Giocatore aggiunto correttamente!");
+                        close();
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Errore", "Errore nell'inserimento del giocatore nel database.");
+                    }
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Errore", "Errore nel database: " + ex.getMessage());
+            }
+
+            System.out.println("Salvato: " + codice + " " + nome + " " + cognome + " " + annoNascita + " " + ruolo + " " + nazionalita +
+                    " Partite Giocate Media: " + partiteGiocateMedia +
+                    " Punti Per Game: " + puntiPerGame +
+                    " Bonus Max Career: " + bonusMaxCareer +
+                    " Rating calcolato: " + rating);
+
+            close();
+        });
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
