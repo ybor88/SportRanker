@@ -37,5 +37,5 @@ CREATE TABLE PLAYERS (
     NAZIONALITA VARCHAR(50) NOT NULL
 );
 
-export db
-mysqldump -u sportranker_user -p BHg72612KJo > backupSportRankerDB.sql
+export db(run cmd as administrator)
+mysqldump -u sportranker_user -p sportRankerDB > backupSportRankerDB.sql  -> poi mettere la password : BHg72612KJo
