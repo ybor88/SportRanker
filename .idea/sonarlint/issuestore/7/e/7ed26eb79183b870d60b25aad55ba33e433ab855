@@ -1,0 +1,6 @@
+
+X	java:S110"<This class has 6 parents which is greater than 5 authorized.(¸¹Ñœ8µ´æÑõ2
+X	java:S110\"<This class has 9 parents which is greater than 5 authorized.(›Œ¹³8©ŒôÑõ2
+Z	java:S106#"9Replace this use of System.out or System.err by a logger.(ğéäÿÿÿÿÿ8İ´æÑõ2
+^
+java:S18740"ARemove this use of "CONSTRAINED_RESIZE_POLICY"; it is deprecated.(¥¾·›8â´æÑõ2

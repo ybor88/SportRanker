@@ -32,6 +32,9 @@ public class BasketballView extends VBox {
         addPlayer.setOnAction(e -> {
             AddPlayerDialogBasketball dialog = new AddPlayerDialogBasketball(stage);
             dialog.showAndWait();
+
+            // Dopo la chiusura della modale, ricarica la BasketballView
+            stage.getScene().setRoot(new BasketballView(stage));
         });
 
         back.setOnAction(e -> stage.getScene().setRoot(new MainView(stage)));

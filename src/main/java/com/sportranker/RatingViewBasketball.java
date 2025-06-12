@@ -66,7 +66,7 @@ public class RatingViewBasketball extends VBox {
         // Pulsante "Indietro" con tono arancione
         Button backButton = new Button("← Torna indietro");
         backButton.setStyle("-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 6 12; -fx-background-radius: 8; -fx-cursor: hand;");
-        backButton.setOnAction(e -> stage.getScene().setRoot(new FootballView(stage)));
+        backButton.setOnAction(e -> stage.getScene().setRoot(new BasketballView(stage)));
 
         getChildren().clear();
         getChildren().addAll(headerImage, title, table, backButton);
