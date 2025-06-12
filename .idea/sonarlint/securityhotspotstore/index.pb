@@ -15,8 +15,6 @@ W
 'src/main/java/com/sportranker/Main.java,8\6\860b90d94c1c699c03cfde4f6c0df6ea8026ae07
 c
 3src/main/java/com/sportranker/RatingViewSoccer.java,7\e\7ed26eb79183b870d60b25aad55ba33e433ab855
-q
-Asrc/main/java/com/sportranker/modali/AddPlayerDialogFootball.java,2\f\2ffc51b80e153551b4d0f8d1eb5b327040a57ea3
 s
 Csrc/main/java/com/sportranker/modali/AddPlayerDialogBasketball.java,a\6\a63de09aa440c66fc6a15658a312981c6f20c918
 [

@@ -79,7 +79,7 @@ public class AddPlayerDialogFootball extends Stage {
         grid.add(new Label("Partite Giocate Totali Carriera / Stagioni Totali Carriera:"), 0, 6);
         grid.add(partiteDivisoStagioniField, 1, 6);
 
-        grid.add(new Label("(Calcolo Goal Carriera * 2 / Partite totali Carriera) * 100:"), 0, 7);
+        grid.add(new Label("1)(Calcolo Goal Carriera * 2 / Partite totali Carriera) * 100.  2)(se portiere - numero presenze totali/goal subiti totali) * 100::"), 0, 7);
         grid.add(goalCalcoloField, 1, 7);
 
         grid.add(new Label("Tipo Bonus Ruolo:"), 0, 8);
