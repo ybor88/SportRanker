@@ -19,6 +19,10 @@ run commando : clean javafx:run -> maven configuration type run
 
 mysql -u root -p
 
+port : 3306
+user : root
+password : bhdg8JK98!
+
 CREATE DATABASE sportRankerDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE sportRankerDB;
 
@@ -38,4 +42,4 @@ CREATE TABLE PLAYERS (
 );
 
 export db(run cmd as administrator)
-mysqldump -u sportranker_user -p sportRankerDB > backupSportRankerDB.sql  -> poi mettere la password : BHg72612KJo
+mysqldump -u sportranker_user -p sportRankerDB > C:\SportRanker\src\main\resources\dbBackup\backupSportRankerDB_17062025.sql  -> poi mettere la password : BHg72612KJo
